@@ -23,10 +23,10 @@ class DatabaseLib(HybridCore):
     DatabaseLib is created based on [https://www.sqlalchemy.org/|sqlalchemy].
 
     It support below features:
-    * Database operations(select/insert/update/delete...)
-    * Multi database connections, user could use "Switch Connection" to change current connection
-    * ORM extension support
-    * Extension this libraries easily
+    - Database operations(select/insert/update/delete...)
+    - Multi database connections, user could use "Switch Connection" to change current connection
+    - ORM extension support
+    - Extension this libraries easily
     """
 
     ROBOT_LIBRARY_SCOPE = 'GLOBAL'
@@ -48,7 +48,7 @@ class DatabaseLib(HybridCore):
     def connect_to_db(self, hostOrUrl, port=None, database=None, user=None, password=None, dbPrefix=None, alias=None,
                       **kwargs):
         """
-        Connect to database `sqlalchemy <http://docs.sqlalchemy.org/en/latest/core/engines.html>`_
+        Connect to database  [http://docs.sqlalchemy.org/en/latest/core/engines.html|sqlalchemy]
 
         :param hostOrUrl: database hostname or database connection string
         :param port: database port
