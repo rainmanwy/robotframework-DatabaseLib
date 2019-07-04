@@ -17,7 +17,7 @@ Topic :: Software Development :: Testing
 Framework :: Robot Framework
 Framework :: Robot Framework :: Library
 '''.strip().splitlines()
-with open(join(CURDIR, 'src', 'version.py')) as f:
+with open(join(CURDIR, 'src','DatabaseLib' , 'version.py')) as f:
     VERSION = re.search("\nVERSION = '(.*)'", f.read()).group(1)
 DESCRIPTION = 'Database Library for Robot Framework based on sqlalchemy'
 with open(join(CURDIR, 'requirements.txt')) as f:
