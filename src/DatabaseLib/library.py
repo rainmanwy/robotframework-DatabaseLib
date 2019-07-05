@@ -202,11 +202,11 @@ class DatabaseLib(HybridCore):
     @keyword
     def call_stored_procedure(self, name, *params):
         """
-        调用存储过程
+        Call stored procedure
 
-        :param name: 存储过程名字
-        :param params: 存储过程参数
-        :return: 存储过程返回值
+        :param name: name of stored procedure
+        :param params: parameters of stored procedure
+        :return: results
         """
         connection = self.current.raw_connection()
         try:
