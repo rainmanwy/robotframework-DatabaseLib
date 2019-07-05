@@ -47,8 +47,4 @@ class StudentKeyword:
 class ExtendLib(DatabaseLib):
     def __init__(self):
         super(ExtendLib, self).__init__([StudentKeyword(self)])
-    
-    @property
-    def session(self):
-        return self.create_session()
 ```

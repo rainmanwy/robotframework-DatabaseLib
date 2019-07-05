@@ -28,7 +28,6 @@ class DatabaseLib(HybridCore):
     - ORM extension support
     - Extension this libraries easily
     """
-
     ROBOT_LIBRARY_SCOPE = 'GLOBAL'
     ROBOT_LIBRARY_VERSION = VERSION
 
@@ -37,12 +36,18 @@ class DatabaseLib(HybridCore):
         DatabaseLib could be extened through parameter libraryComponents
         """
         self._connections = ConnectionCache()
-        self.sessions = {}
+        self._sessions = {}
         super(DatabaseLib, self).__init__(libraryComponents)
 
     @property
-    def current(self) -> Engine:
+    def current(self):
         return self._connections.current
+
+    @property
+    def session(self):
+        if self.current not in self._sessions:
+            raise RuntimeError('Session is not created!')
+        return self._sessions[self.current]
 
     @keyword
     def connect_to_db(self, hostOrUrl, port=None, database=None, user=None, password=None, dbPrefix=None, alias=None,
@@ -108,13 +113,13 @@ class DatabaseLib(HybridCore):
         :param kwargs: Please check Session in sqlalchemy
         :return: session
         """
-        if self.current in self.sessions:
-            return self.sessions[self.current]
+        if self.current in self._sessions:
+            return self._sessions[self.current]
         elif self.current is not None:
             self.current.echo = 'debug'
             session = scoped_session(sessionmaker(bind=self.current, autoflush=autoflush, autocommit=autocommit,
                                                   expire_on_commit=expireOnCommit, info=info, **kwargs))
-            self.sessions[self.current] = session
+            self._sessions[self.current] = session
             return session
         raise RuntimeError('Current connection may closed, or not create connection yet!')
 
@@ -125,8 +130,8 @@ class DatabaseLib(HybridCore):
 
         :return: None
         """
-        if self.current in self.sessions:
-            self.sessions.pop(self.current)
+        if self.current in self._sessions:
+            self._sessions.pop(self.current)
         self.current.dispose()
         self._connections.current = self._connections._no_current
 
@@ -137,7 +142,7 @@ class DatabaseLib(HybridCore):
 
         :return: None
         """
-        self.sessions.clear()
+        self._sessions.clear()
         self._connections.close_all('dispose')
 
     @keyword
