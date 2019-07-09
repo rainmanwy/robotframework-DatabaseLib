@@ -8,7 +8,7 @@ This Library is developed based on [sqlalchemy](https://www.sqlalchemy.org/), it
 * Support multi database connections
 * Support session and ORM(Need be extended by user)  
 ## Keyword Documentation
-[Keyword Documentation](https://github.com/rainmanwy/robotframework-databaselib/blob/master/doc/DatabaseLib.html)
+[Keyword Documentation](doc/DatabaseLib.html)
 ## Installation
 ```commandline
 pip install robotframework-databaselib
